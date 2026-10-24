@@ -1,0 +1,46 @@
+# Regenerate product demo videos from saved demoin scripts on every release.
+# Replays need no model key: the steps come from the scripts in demos/.
+# Copy to .github/workflows/demo-videos.yml and adjust the URL and secrets.
+name: demo videos
+
+on:
+  release:
+    types: [published]
+  workflow_dispatch:
+
+jobs:
+  render:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      - name: Install ffmpeg and Chrome
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ffmpeg fonts-inter fonts-noto-color-emoji
+          npx playwright install --with-deps chrome
+
+      - name: Replay every script against staging
+        env:
+          DEMOIN_CHROME_NO_SANDBOX: "1"
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }} # only for --voice openai:*
+        run: |
+          mkdir -p videos
+          for s in demos/*.demoin.yaml; do
+            name=$(basename "$s" .demoin.yaml)
+            npx -y demoin replay "$s" \
+              --url https://staging.example.com \
+              --strict \
+              --voice openai:alloy \
+              --subtitles burn \
+              -o "videos/$name.mp4"
+          done
+
+      - uses: actions/upload-artifact@v4
+        with:
+          name: demo-videos
+          path: videos/

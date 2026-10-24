@@ -1,0 +1,22 @@
+<!doctype html><html><head></head><body>
+<div id="err" style="display:none" class="p-3 rounded bg-red-50 text-red-600 text-sm"><span style="color:rgb(220,38,38)">Nama bisnis wajib diisi</span></div>
+<h2>Buat Akun</h2><p>Masukkan detail akun Anda.</p>
+<div class="grid grid-cols-2 gap-4">
+<div class="w-full"><label class="block text-sm">Nama Pemilik</label><div class="relative"><input class="w-full border" placeholder="John Doe" required value="" name="owner_name"></div></div>
+<div class="w-full"><label class="block text-sm">Nama Bisnis</label><div class="relative"><input class="w-full border" placeholder="Toko Saya" required value="" name="company_name"></div></div>
+<div class="w-full"><label class="block text-sm">Email</label><div class="relative"><input type="email" class="w-full border" placeholder="email@example.com" required name="email"></div></div>
+<div class="w-full"><label class="block text-sm">No. Telepon</label><div class="relative"><input class="w-full border" placeholder="08xxxxxxxxxx" required name="phone"></div></div>
+<div class="w-full col-span-2"><label class="block text-sm">Subdomain</label><div class="flex"><input class="w-full border" placeholder="toko-saya" required name="domain"><div>.example.com</div></div></div>
+<div class="w-full"><label class="block text-sm">Password</label><div class="relative"><input type="password" class="w-full border" placeholder="••••••••" required name="password"></div></div>
+<div class="w-full"><label class="block text-sm">Konfirmasi Password</label><div class="relative"><input type="password" class="w-full border" placeholder="••••••••" required name="password_confirmation"></div></div>
+</div>
+<button type="submit">Sebelumnya</button><button type="submit" id="lanjut">Lanjut ke Detail Bisnis</button>
+</body></html>
+<script>
+document.getElementById("lanjut").onclick = () => {
+  const kosong = [...document.querySelectorAll("input[required]")].filter((i) => !i.value);
+  const err = document.getElementById("err");
+  if (kosong.length) { err.style.display = "block"; err.querySelector("span").textContent = (kosong[0].closest(".w-full").querySelector("label").textContent) + " wajib diisi"; return; }
+  document.body.innerHTML = "<h1>Detail Bisnis</h1><p>Akun dibuat. Lanjutkan isi detail bisnis.</p>";
+};
+</script>

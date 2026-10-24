@@ -1,0 +1,7 @@
+<!doctype html><html lang="id"><body style="font-family:sans-serif"><nav id="nav"></nav><main id="isi"><h1>Dashboard</h1></main>
+<script>
+// Aplikasi satu halaman yang menggambar ulang menunya terus-menerus (misalnya tiap data tiba).
+const gambar = () => { document.getElementById("nav").innerHTML = '<button onclick="buka()">Bots</button> <button>Lisensi</button>'; };
+window.buka = () => { document.getElementById("isi").innerHTML = "<h1>Daftar Bot</h1><p>3 bot aktif</p>"; };
+gambar(); setInterval(gambar, 700);
+</script></body></html>
