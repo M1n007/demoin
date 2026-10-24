@@ -21,6 +21,7 @@ import { launchBrowser, Executor } from "../src/browser/executor.js";
 import { presetOf } from "../src/preset.js";
 import { snapshotPage, renderSnapshot, emptyRequiredFields, fieldsNamedInErrors } from "../src/browser/snapshot.js";
 import { splitCredentials } from "../src/browser/credentials.js";
+import { findTarget } from "../src/script/locator.js";
 
 const SITES = fileURLToPath(new URL("./sites", import.meta.url));
 
@@ -144,6 +145,34 @@ const CASES: Case[] = [
         const body = await b.page.innerText("body");
         must(body.includes("Rina"), `still loading: ${body.slice(0, 60)}`);
         return "an action only counts as done once the loading text is gone";
+      } finally {
+        await b.close();
+      }
+    },
+  },
+  {
+    name: "closed-phone-menu",
+    origin: "invitation-app 9:16 replay: \"Harga\" clicked inside a shut <details> menu, step reported as done",
+    async run(site) {
+      const b = await browser("mobile");
+      try {
+        await b.page.goto(`${site}/menu-tertutup.html`);
+        const closed = await snapshotPage(b.page);
+        const leaked = closed.elements.filter((e) => /^(Harga|Koleksi desain)$/.test(e.name.trim()));
+        must(!leaked.length, `links of the shut menu are listed: ${leaked.map((e) => e.ref).join(", ")}`);
+        must(!findTarget(closed, { tag: "a", name: "Harga" }), "replay found a link nobody can see");
+        const menu = closed.elements.find((e) => e.name === "Menu navigasi");
+        must(menu, "the menu button itself must stay listed");
+
+        const exec = new Executor(b.page, fakeRecorder, [], "none", presetOf("mobile"));
+        await exec.run({ kind: "click", ref: menu.ref, narration: "" }, closed);
+        const open = await snapshotPage(b.page);
+        const harga = findTarget(open, { tag: "a", name: "Harga" });
+        must(harga, "once the menu is open its links must be listed");
+        await exec.run({ kind: "click", ref: harga.ref, narration: "" }, open);
+        const y = await b.page.evaluate(() => scrollY);
+        must(y > 1200, `the click should land on the pricing section, scrollY=${y}`);
+        return "shut menu hidden from the agent and replay; opened menu works";
       } finally {
         await b.close();
       }

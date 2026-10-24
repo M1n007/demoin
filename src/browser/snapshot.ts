@@ -210,6 +210,18 @@ export async function snapshotPage(page: Page, maxElements = 70): Promise<PageSn
           (el.type === "checkbox" || el.type === "radio");
         if (!proxied && Number(cs.opacity) < 0.05) return false;
         if (el.getAttribute("aria-hidden") === "true") return false;
+        /**
+         * Laid out but never painted: the links of a closed <details> menu, or
+         * anything under content-visibility: hidden. Chrome still reports a
+         * real box for them, right on top of whatever IS visible there, so the
+         * agent picked "Pricing" from a phone menu that was shut, the click hit
+         * the page underneath, and the step counted as done.
+         */
+        const shut = el.closest("details:not([open])");
+        if (shut && !el.closest("summary")?.parentElement?.isSameNode(shut)) return false;
+        if (el.closest("[inert], [hidden]")) return false;
+        const check = (el as Element & { checkVisibility?: (o?: object) => boolean }).checkVisibility;
+        if (check && !proxied && !check.call(el, { visibilityProperty: true })) return false;
         // drop what is far outside the viewport (above/below)
         if (r.bottom < -300 || r.top > vh + 900) return false;
         if (r.right < 0 || r.left > vw) return false;

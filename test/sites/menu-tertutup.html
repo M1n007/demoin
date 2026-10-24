@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Undangan Kita</title>
+<style>
+  body { margin: 0; font-family: sans-serif; }
+  header { position: sticky; top: 0; display: flex; justify-content: space-between; align-items: center;
+           padding: 12px 16px; background: #f4f1ea; z-index: 2; }
+  .nav-desktop a { margin-left: 16px; }
+  /* phones: the desktop links disappear, a menu button takes over */
+  @media (max-width: 700px) { .nav-desktop { display: none; } }
+  @media (min-width: 701px) { details.nav-ponsel { display: none; } }
+  details.nav-ponsel summary { list-style: none; cursor: pointer; padding: 8px 12px; border: 1px solid #333; }
+  details.nav-ponsel summary::-webkit-details-marker { display: none; }
+  /* the panel is positioned, so Chrome still reports a box for its links while it is shut */
+  details.nav-ponsel nav { position: fixed; top: 64px; right: 16px; width: 180px; background: #fff;
+                           box-shadow: 0 6px 20px #0002; display: flex; flex-direction: column; }
+  details.nav-ponsel nav a { padding: 14px 16px; border-bottom: 1px solid #eee; }
+  section { min-height: 900px; padding: 24px 16px; }
+  #harga { background: #eef5ee; }
+</style>
+</head>
+<body>
+<header>
+  <strong>Undangan Kita</strong>
+  <nav class="nav-desktop"><a href="#koleksi">Koleksi desain</a><a href="#harga">Harga</a></nav>
+  <details class="nav-ponsel">
+    <summary aria-label="Menu navigasi">☰</summary>
+    <nav aria-label="Navigasi ponsel">
+      <a href="#koleksi">Koleksi desain</a>
+      <a href="#harga">Harga</a>
+    </nav>
+  </details>
+</header>
+<section id="awal"><h1>Hari istimewa.</h1><p>Undangan digital untuk semua acara.</p></section>
+<section id="koleksi"><h2>Koleksi desain</h2></section>
+<section id="harga"><h2>Paket harga</h2><p>Basic gratis, Premium Rp155.000.</p></section>
+</body>
+</html>
