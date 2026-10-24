@@ -1,0 +1,52 @@
+# demoin script, hand-edited from harikita-desktop.demoin.yaml for a 9:16 video:
+# on phones the navigation sits behind a menu button, so it is opened first.
+# Replay with: demoin replay harikita-mobile.demoin.yaml
+demoin: 1
+url: https://harikita.id
+goal: browse the invitation template collection, open one template to preview it, then show the pricing plans
+device: mobile
+mode: howto
+style: auto
+language: English
+credentials: []
+steps:
+  - do: click
+    target:
+      tag: summary
+      name: Menu navigasi
+    narration: Open the menu to find the design collection.
+    focus: zoom
+  - do: click
+    target:
+      role: a
+      name: Koleksi desain
+      tag: a
+    narration: Tap "Koleksi desain" to see every invitation design.
+    focus: zoom
+  - do: click
+    target:
+      role: button
+      name: Pratinjau Bioskop Kita
+      tag: button
+    narration: Each design has a live preview. Let's open "Bioskop Kita".
+    focus: zoom
+  - do: click
+    target:
+      role: button
+      name: Tutup pratinjau
+      tag: button
+    narration: Close the preview to go back to the collection.
+    focus: zoom
+  - do: click
+    target:
+      tag: summary
+      name: Menu navigasi
+    narration: Back to the menu for the pricing.
+    focus: zoom
+  - do: click
+    target:
+      role: a
+      name: Harga
+      tag: a
+    narration: The free plan covers the basics; Premium unlocks every design.
+    focus: zoom

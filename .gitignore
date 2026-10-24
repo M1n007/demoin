@@ -7,3 +7,4 @@ demoin-out
 *.mp4
 *.webm
 .DS_Store
+!docs/examples/**/*.mp4

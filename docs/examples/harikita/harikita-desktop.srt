@@ -1,0 +1,15 @@
+1
+00:00:03,531 --> 00:00:08,258
+First, we will navigate to the design collection by clicking the "Koleksi desain" link.
+
+2
+00:00:12,772 --> 00:00:18,916
+We can browse through various invitation templates, and I will select "Bioskop Kita" to preview its design.
+
+3
+00:00:23,207 --> 00:00:28,037
+To close the preview and return to the main collection, click the "Tutup pratinjau" button.
+
+4
+00:00:31,751 --> 00:00:36,070
+To see the different pricing options, click the "Harga" link in the navigation bar.

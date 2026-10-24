@@ -6,6 +6,12 @@
 npx demoin linear.app "create an issue and assign it to a teammate" --voice openai:alloy
 ```
 
+<p align="center">
+  <img src="docs/examples/harikita/harikita-desktop.gif" alt="demoin recording harikita.id: template collection, live preview, pricing" width="720">
+  <br>
+  <sub>Recorded from one command against <a href="https://harikita.id">harikita.id</a>, untouched. GIF is sped up and silent; the <a href="docs/examples/harikita/harikita-desktop.mp4">mp4</a> has voiceover and click sounds. <a href="#example-harikitaid">How it was made ↓</a></sub>
+</p>
+
 An AI agent opens your site in a real Chrome, plans the video like a storyboard, clicks and types its
 way to the goal, and renders an mp4 that looks edited by hand: smooth camera moves that follow the
 action, an animated cursor with click ripples, spotlight and lightbox highlights, a browser frame on a
@@ -22,6 +28,89 @@ which makes it cheap enough to regenerate your demos in CI on every release.
 - **16:9 or 9:16.** Desktop with browser chrome, or a phone frame for Reels, TikTok and Shorts.
 - **MCP server.** Let Claude Code or Cursor record a demo of the feature it just built.
 - **Credentials never reach the model.** The agent only sees `{{EMAIL}}` / `{{PASSWORD}}` placeholders.
+
+## Example: harikita.id
+
+[Harikita](https://harikita.id) is an Indonesian digital-invitation site. The UI is in Indonesian; the
+narration below is in English, which demoin handles without any setup.
+
+### 1. Record it with the agent (desktop, 16:9)
+
+```bash
+demoin harikita.id \
+  "browse the invitation template collection, open one template to preview it, then show the pricing plans" \
+  --model gemini:gemini-2.5-flash --voice say:Samantha --subtitles burn --sound --poster \
+  -o docs/examples/harikita/harikita-desktop.mp4
+```
+
+```text
+· Model: gemini:gemini-2.5-flash
+· Voiceover: say:Samantha
+· Opening https://harikita.id
+· Plan: 1. Navigate to Design Collection, 2. Explore Invitation Designs, 3. Preview a Template, 4. View Pricing Plans
+› 1. First, we will navigate to the design collection by clicking the "Koleksi desain" link.
+› 2. The collection is organized into categories like "Pernikahan" for weddings, allowing users to filter designs easily.
+› 3. We can browse through various invitation templates, and I will select "Bioskop Kita" to preview its design.
+› 4. To close the preview and return to the main collection, click the "Tutup pratinjau" button.
+› 5. To see the different pricing options, click the "Harga" link in the navigation bar.
+· Agent finished: All sections of the video plan have been covered, and the pricing plans are now visible on screen.
+· 1 steps did not change the screen, cut from the video.
+· Rendering video…
+· Voiceover: 4 clip(s) placed
+
+✓ docs/examples/harikita/harikita-desktop.mp4
+  41.0s, 4 steps (1 empty cut)
+  The user navigates to the design collection, filters by category, previews an invitation template, closes the preview, and then views the pricing plans.
+  script: docs/examples/harikita/harikita-desktop.demoin.yaml
+  subtitles: docs/examples/harikita/harikita-desktop.srt
+  poster: docs/examples/harikita/harikita-desktop.jpg
+  gemini:gemini-2.5-flash: 8 calls, 33100 in / 3411 out tokens
+```
+
+Step 2 clicked the "Pernikahan" category tab, which changed nothing on screen; the pixel check caught
+that and cut it, so the video has 4 steps. The whole run cost 8 model calls (about 36k tokens on Gemini Flash).
+
+| Output | |
+| --- | --- |
+| Video (voiceover, click sounds, burned-in subtitles) | [`harikita-desktop.mp4`](docs/examples/harikita/harikita-desktop.mp4) |
+| Replayable script | [`harikita-desktop.demoin.yaml`](docs/examples/harikita/harikita-desktop.demoin.yaml) |
+| Subtitles | [`.srt`](docs/examples/harikita/harikita-desktop.srt) · [`.vtt`](docs/examples/harikita/harikita-desktop.vtt) |
+| Poster | [`harikita-desktop.jpg`](docs/examples/harikita/harikita-desktop.jpg) |
+
+### 2. Replay it for phones, no AI (9:16)
+
+On phones Harikita tucks its navigation behind a menu button, so the desktop script was copied and
+edited by hand: `device: mobile`, a "Menu navigasi" tap before each nav link, and shorter lines for a
+vertical video. See [`harikita-mobile.demoin.yaml`](docs/examples/harikita/harikita-mobile.demoin.yaml).
+
+<img src="docs/examples/harikita/harikita-mobile.gif" alt="9:16 replay of the edited script" width="240" align="right">
+
+```bash
+demoin replay docs/examples/harikita/harikita-mobile.demoin.yaml \
+  --voice say:Samantha --subtitles burn --sound --poster --strict \
+  -o docs/examples/harikita/harikita-mobile.mp4
+```
+
+```text
+· Voiceover: say:Samantha
+· Opening https://harikita.id
+› 1/6 click: Open the menu to find the design collection.
+› 2/6 click: Tap "Koleksi desain" to see every invitation design.
+› 3/6 click: Each design has a live preview. Let's open "Bioskop Kita".
+› 4/6 click: Close the preview to go back to the collection.
+› 5/6 click: Back to the menu for the pricing.
+› 6/6 click: The free plan covers the basics; Premium unlocks every design.
+· Rendering video…
+· Voiceover: 6 clip(s) placed
+
+✓ docs/examples/harikita/harikita-mobile.mp4
+  53.9s, 6 steps
+```
+
+Zero model calls. `--strict` makes the replay fail if any element can no longer be found, which is
+what you want in CI. Full video: [`harikita-mobile.mp4`](docs/examples/harikita/harikita-mobile.mp4).
+
+<br clear="right">
 
 ## Install
 

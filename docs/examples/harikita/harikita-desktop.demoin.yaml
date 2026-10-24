@@ -1,0 +1,57 @@
+# demoin script. Replay with: demoin replay harikita-desktop.demoin.yaml
+# Steps refer to elements by role and name; edit freely.
+demoin: 1
+url: https://harikita.id
+goal: browse the invitation template collection, open one template to preview it, then show the pricing plans
+device: desktop
+mode: howto
+style: auto
+language: English
+credentials: []
+steps:
+  - do: click
+    target:
+      role: a
+      name: Koleksi desain
+      tag: a
+      near:
+        x: 630
+        y: 43
+      page: /
+    narration: First, we will navigate to the design collection by clicking the "Koleksi desain" link.
+    focus: zoom
+  - do: click
+    target:
+      role: button
+      name: Pratinjau Bioskop Kita
+      tag: button
+      type: button
+      near:
+        x: 300
+        y: 807
+      page: /
+    narration: We can browse through various invitation templates, and I will select "Bioskop Kita" to preview its design.
+    focus: zoom
+  - do: click
+    target:
+      role: button
+      name: Tutup pratinjau
+      tag: button
+      type: button
+      near:
+        x: 969
+        y: 49
+      page: /
+    narration: To close the preview and return to the main collection, click the "Tutup pratinjau" button.
+    focus: zoom
+  - do: click
+    target:
+      role: a
+      name: Harga
+      tag: a
+      near:
+        x: 800
+        y: 43
+      page: /
+    narration: To see the different pricing options, click the "Harga" link in the navigation bar.
+    focus: zoom
