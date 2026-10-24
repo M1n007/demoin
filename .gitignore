@@ -8,3 +8,4 @@ demoin-out
 *.webm
 .DS_Store
 !docs/examples/**/*.mp4
+!docs/samples/*.mp4
