@@ -112,6 +112,33 @@ what you want in CI. Full video: [`harikita-mobile.mp4`](docs/examples/harikita/
 
 <br clear="right">
 
+## More styles: Quick and Studio (demoin.app)
+
+This repository is the agent recorder. The hosted app, [demoin.app](https://demoin.app), adds two more
+ways to make a video on top of it. **Their code is not part of this repository**; the samples below
+were rendered by them from harikita.id so you can see what they produce.
+
+**Quick** photographs a site's pages and animates them (logo intro, chapter titles, camera moves,
+outro card with a call to action), with no agent and no clicking. Brand name, logo and colours are
+read from the site itself.
+
+| Quick, 16:9 | Quick, 9:16 |
+| :---: | :---: |
+| <a href="docs/samples/quick-harikita-desktop.mp4"><img src="docs/samples/quick-harikita-desktop.gif" width="420" alt="Quick mode, desktop"></a> | <a href="docs/samples/quick-harikita-mobile.mp4"><img src="docs/samples/quick-harikita-mobile.gif" width="200" alt="Quick mode, mobile"></a> |
+| 5 pages, 50 s · [mp4](docs/samples/quick-harikita-desktop.mp4) | 5 pages, 55 s · [mp4](docs/samples/quick-harikita-mobile.mp4) |
+
+**Studio** builds short motion-graphics promos from 18 templates (kinetic type, product cards,
+tickets, counters, confetti, synthesized music with no copyright claims), editable scene by scene.
+In these samples only the brand name and URL were set to Harikita; the rest is each template's
+default copy.
+
+| `editorial`, 16:9 | `kilat-diskon`, 16:9 | `hari-jadi`, 9:16 | `tiket-acara`, 9:16 |
+| :---: | :---: | :---: | :---: |
+| <a href="docs/samples/studio-editorial-desktop.mp4"><img src="docs/samples/studio-editorial-desktop.gif" width="300" alt="Studio template editorial"></a> | <a href="docs/samples/studio-kilat-diskon-desktop.mp4"><img src="docs/samples/studio-kilat-diskon-desktop.gif" width="300" alt="Studio template kilat-diskon"></a> | <a href="docs/samples/studio-hari-jadi-mobile.mp4"><img src="docs/samples/studio-hari-jadi-mobile.gif" width="150" alt="Studio template hari-jadi"></a> | <a href="docs/samples/studio-tiket-acara-mobile.mp4"><img src="docs/samples/studio-tiket-acara-mobile.gif" width="150" alt="Studio template tiket-acara"></a> |
+| 26.5 s · [mp4](docs/samples/studio-editorial-desktop.mp4) | 15 s · [mp4](docs/samples/studio-kilat-diskon-desktop.mp4) | 17 s · [mp4](docs/samples/studio-hari-jadi-mobile.mp4) | 18.6 s · [mp4](docs/samples/studio-tiket-acara-mobile.mp4) |
+
+The GIFs are sped up and silent; click through for the mp4 with sound.
+
 ## Install
 
 Requirements: Node 20+, [ffmpeg](https://ffmpeg.org/download.html) on your `PATH`, and Google Chrome
